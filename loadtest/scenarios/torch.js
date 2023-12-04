@@ -4,8 +4,8 @@ import { check, sleep } from 'k6';
 const allPayloads = JSON.parse(open('../resources/torch_payloads.json'));
 
 export let options = {
-    vus: 10, // number of virtual users
-    duration: '30s', // duration of the test
+    vus: 40, // number of virtual users
+    duration: '600s', // duration of the test
 };
 
 export default function () {

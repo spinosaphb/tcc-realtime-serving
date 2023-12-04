@@ -1,0 +1,26 @@
+[
+    {
+        "type": "torch",
+        "image_path": "1.jpg"
+    },
+    {
+        "type": "torch",
+        "image_path": "2.jpg"
+    },
+    {
+        "type": "torch",
+        "image_path": "3.jpg"
+    },
+    {
+        "type": "torch",
+        "image_path": "4.jpg"
+    },
+    {
+        "type": "torch",
+        "image_path": "5.jpg"
+    },
+    {
+        "type": "torch",
+        "image_path": "6.jpg"
+    }
+]

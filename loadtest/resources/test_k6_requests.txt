@@ -1,0 +1,117 @@
+(base) [deadpixel@fedora scenarios]$ k6 run keras.js --out csv=keras_output.csv
+
+          /\      |‾‾| /‾‾/   /‾‾/   
+     /\  /  \     |  |/  /   /  /    
+    /  \/    \    |     (   /   ‾‾\  
+   /          \   |  |\  \ |  (‾)  | 
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: keras.js
+     output: csv (keras_output.csv)
+
+  scenarios: (100.00%) 1 scenario, 40 max VUs, 10m30s max duration (incl. graceful stop):
+           * default: 40 looping VUs for 10m0s (gracefulStop: 30s)
+
+
+     ✓ status is 200
+
+     checks.........................: 100.00% ✓ 12180     ✗ 0    
+     data_received..................: 1.7 MB  2.9 kB/s
+     data_sent......................: 2.2 MB  3.5 kB/s
+     http_req_blocked...............: avg=3.85µs   min=737ns   med=2.42µs   max=587.57µs p(90)=4.75µs  p(95)=6.74µs 
+     http_req_connecting............: avg=365ns    min=0s      med=0s       max=557.33µs p(90)=0s      p(95)=0s     
+     http_req_duration..............: avg=993.07ms min=45.43ms med=979.86ms max=6.3s     p(90)=1.17s   p(95)=1.24s  
+       { expected_response:true }...: avg=993.07ms min=45.43ms med=979.86ms max=6.3s     p(90)=1.17s   p(95)=1.24s  
+     http_req_failed................: 0.00%   ✓ 0         ✗ 12180
+     http_req_receiving.............: avg=25.6µs   min=7.29µs  med=24.6µs   max=627.3µs  p(90)=36.81µs p(95)=46.04µs
+     http_req_sending...............: avg=12.47µs  min=2.91µs  med=8.79µs   max=510.09µs p(90)=21.58µs p(95)=26.8µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s       p(90)=0s      p(95)=0s     
+     http_req_waiting...............: avg=993.03ms min=45.37ms med=979.82ms max=6.3s     p(90)=1.17s   p(95)=1.24s  
+     http_reqs......................: 12180   19.965541/s
+     iteration_duration.............: avg=11.96s   min=8.89s   med=11.96s   max=16.84s   p(90)=12.57s  p(95)=12.82s 
+     iterations.....................: 2030    3.32759/s
+     vus............................: 2       min=2       max=40 
+     vus_max........................: 40      min=40      max=40 
+
+
+running (10m10.1s), 00/40 VUs, 2030 complete and 0 interrupted iterations
+default ✓ [======================================] 40 VUs  10m0s
+(base) [deadpixel@fedora scenarios]$ k6 run torch.js --out csv=torch_output.csv
+
+          /\      |‾‾| /‾‾/   /‾‾/   
+     /\  /  \     |  |/  /   /  /    
+    /  \/    \    |     (   /   ‾‾\  
+   /          \   |  |\  \ |  (‾)  | 
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: torch.js
+     output: csv (torch_output.csv)
+
+  scenarios: (100.00%) 1 scenario, 40 max VUs, 10m30s max duration (incl. graceful stop):
+           * default: 40 looping VUs for 10m0s (gracefulStop: 30s)
+
+
+     ✓ status is 200
+
+     checks.........................: 100.00% ✓ 19092     ✗ 0    
+     data_received..................: 2.7 MB  4.5 kB/s
+     data_sent......................: 3.4 MB  5.6 kB/s
+     http_req_blocked...............: avg=6.63µs   min=887ns   med=4.38µs   max=1.71ms p(90)=6.8µs    p(95)=10.47µs 
+     http_req_connecting............: avg=958ns    min=0s      med=0s       max=1.33ms p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=264.17ms min=27.43ms med=265.21ms max=1.19s  p(90)=293.32ms p(95)=316.42ms
+       { expected_response:true }...: avg=264.17ms min=27.43ms med=265.21ms max=1.19s  p(90)=293.32ms p(95)=316.42ms
+     http_req_failed................: 0.00%   ✓ 0         ✗ 19092
+     http_req_receiving.............: avg=39.79µs  min=12.2µs  med=34.68µs  max=1.04ms p(90)=62.25µs  p(95)=66.33µs 
+     http_req_sending...............: avg=24.03µs  min=3.76µs  med=22.7µs   max=1.18ms p(90)=30.1µs   p(95)=38.94µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s     p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=264.1ms  min=27.34ms med=265.15ms max=1.19s  p(90)=293.26ms p(95)=316.36ms
+     http_reqs......................: 19092   31.453557/s
+     iteration_duration.............: avg=7.58s    min=6.63s   med=7.6s     max=8.34s  p(90)=7.78s    p(95)=7.82s   
+     iterations.....................: 3182    5.24226/s
+     vus............................: 18      min=18      max=40 
+     vus_max........................: 40      min=40      max=40 
+
+
+running (10m07.0s), 00/40 VUs, 3182 complete and 0 interrupted iterations
+default ✓ [======================================] 40 VUs  10m0s
+(base) [deadpixel@fedora scenarios]$ k6 run onnx.js --out csv=onnx_output.csv
+
+          /\      |‾‾| /‾‾/   /‾‾/   
+     /\  /  \     |  |/  /   /  /    
+    /  \/    \    |     (   /   ‾‾\  
+   /          \   |  |\  \ |  (‾)  | 
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: onnx.js
+     output: csv (onnx_output.csv)
+
+  scenarios: (100.00%) 1 scenario, 40 max VUs, 10m30s max duration (incl. graceful stop):
+           * default: 40 looping VUs for 10m0s (gracefulStop: 30s)
+
+
+     ✓ status is 200
+
+     checks.........................: 100.00% ✓ 20418     ✗ 0    
+     data_received..................: 2.9 MB  4.8 kB/s
+     data_sent......................: 3.6 MB  5.9 kB/s
+     http_req_blocked...............: avg=4.74µs   min=789ns   med=3.88µs   max=557.83µs p(90)=6.97µs   p(95)=8.61µs  
+     http_req_connecting............: avg=153ns    min=0s      med=0s       max=288.76µs p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=179ms    min=13.1ms  med=150.92ms max=831.95ms p(90)=327.87ms p(95)=398.94ms
+       { expected_response:true }...: avg=179ms    min=13.1ms  med=150.92ms max=831.95ms p(90)=327.87ms p(95)=398.94ms
+     http_req_failed................: 0.00%   ✓ 0         ✗ 20418
+     http_req_receiving.............: avg=43.01µs  min=9.32µs  med=36.89µs  max=2.29ms   p(90)=66.15µs  p(95)=72.69µs 
+     http_req_sending...............: avg=20.61µs  min=3.11µs  med=18.18µs  max=10.3ms   p(90)=30.29µs  p(95)=36.59µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=178.94ms min=13.02ms med=150.86ms max=831.93ms p(90)=327.82ms p(95)=398.89ms
+     http_reqs......................: 20418   33.676097/s
+     iteration_duration.............: avg=7.07s    min=6.29s   med=6.98s    max=8.72s    p(90)=7.61s    p(95)=7.78s   
+     iterations.....................: 3403    5.612683/s
+     vus............................: 2       min=2       max=40 
+     vus_max........................: 40      min=40      max=40 
+
+
+running (10m06.3s), 00/40 VUs, 3403 complete and 0 interrupted iterations
+default ✓ [======================================] 40 VUs  10m0s

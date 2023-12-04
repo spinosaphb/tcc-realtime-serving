@@ -1,14 +1,19 @@
 import torch
+import onnxruntime as ort
+import keras
+
 import numpy
 from torchvision import models
 from torchvision import transforms
-import onnxruntime as ort
 from PIL import Image
 from app.config import (
     IMAGE_PATH_PREFIX,
     ONNX_MODEL_PATH,
     TORCH_MODEL_PATH,
+    KERAS_MODEL_PATH
 )
+
+import functools
 
 
 def _get_default_torch_model() -> torch.nn.Module:
@@ -17,6 +22,7 @@ def _get_default_torch_model() -> torch.nn.Module:
     return model
 
 
+@functools.lru_cache()
 def _get_torch_model() -> torch.nn.Module:
     model = _get_default_torch_model()
     weights = torch.load(TORCH_MODEL_PATH, map_location=torch.device('cpu'))
@@ -25,8 +31,15 @@ def _get_torch_model() -> torch.nn.Module:
     return model
 
 
+@functools.lru_cache()
 def _get_onnx_model() -> ort.InferenceSession:
     return ort.InferenceSession(ONNX_MODEL_PATH)
+
+
+@functools.lru_cache()
+def _get_keras_model() -> keras.Model:
+    model = keras.models.load_model(KERAS_MODEL_PATH, safe_mode=False)
+    return model
 
 
 def _get_transformed_image(image_path: str) -> torch.Tensor:
@@ -49,7 +62,6 @@ def _torch_predict(model: torch.nn.Module, image_path: str) -> float:
     return predicted_label
 
 
-
 def _onnx_predict(model: ort.InferenceSession, image_path: str) -> float:
     image = _get_transformed_image(image_path)
     input_name = model.get_inputs()[0].name
@@ -57,6 +69,20 @@ def _onnx_predict(model: ort.InferenceSession, image_path: str) -> float:
     
     predicted_label = numpy.argmax(prediction).item()
     return predicted_label
+
+
+def _keras_predict(model: keras.Model, image_path: str) -> float:
+    image = _get_transformed_image(image_path)
+    prediction = model.predict(image.numpy())
+    
+    predicted_label = numpy.argmax(prediction).item()
+    return predicted_label
+
+
+def load_models():
+    _get_torch_model()
+    _get_onnx_model()
+    _get_keras_model()
 
 
 def predict(model_type: str, image_path: str) -> float:
@@ -70,6 +96,9 @@ def predict(model_type: str, image_path: str) -> float:
         case 'onnx':
             model = _get_onnx_model()
             prediction = _onnx_predict(model, handled_image_path)
+        case 'keras':
+            model = _get_keras_model()
+            prediction = _keras_predict(model, handled_image_path)
         case _:
             raise ValueError(f'Unknown model type: {model_type}')
 

@@ -1,8 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-import { readJson } from 'k6/lib/utils';
 
-const allPayloads = readJson('loadtest/resources/onnx_payloads.json');
+const allPayloads = JSON.parse(open('../resources/onnx_payloads.json'));
 
 export let options = {
     vus: 10, // number of virtual users
@@ -10,7 +9,7 @@ export let options = {
 };
 
 export default function () {
-    let url = 'http://localhost:8000/predict';
+    let url = 'http://localhost:8081/predict';
 
     allPayloads.forEach((currentPayload) => {
         let headers = {

@@ -41,7 +41,7 @@ def _get_keras_model() -> keras.Model:
     model = keras.models.load_model(KERAS_MODEL_PATH, safe_mode=False)
     return model
 
-
+@functools.lru_cache()
 def _get_transformed_image(image_path: str) -> torch.Tensor:
     preprocess = transforms.Compose([
         transforms.Resize(256),
